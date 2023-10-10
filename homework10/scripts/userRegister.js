@@ -5,8 +5,9 @@ function userRegister(){
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
 
+    let userDatabase = localStorage.getItem('users');
 
-    if(localStorage.getItem('users') === null || localStorage.getItem('users').length === 0){
+    if( userDatabase === null || userDatabase.length === 0){
         let usersArray = [];
         usersArray.push(
             {
@@ -20,20 +21,19 @@ function userRegister(){
         localStorage.setItem('users',JSON.stringify(usersArray));
     }
     else {
-        JSON.parse(localStorage.getItem('users')).push(   //აქ როგორც ვხვდები რაღაც შეცდომას ვუშვებ და არ ემატება ახალი ელემენტი.
-                                                        //"[{\"firstname\":\"dwh\",\"lastname\":\"JFJS\",\"location\":\"HFJWF\",\"username\":\"JHHFJW\",\"password\":\"JNJQ\"}]"
-                                                        //ასე გამოაქვს ახალ ელემენტს რომ ვამატებ
+        let toJsonObject = JSON.parse(userDatabase);
+        toJsonObject.push(
             {
-                
                 firstname,
                 lastname,
                 location,
                 username,
                 password
             }
-        )
-        localStorage.setItem('users',JSON.stringify(localStorage.getItem('users')));
+        );
+        
+        localStorage.setItem('users',JSON.stringify(toJsonObject));
     }
-    alert('Registration was successful!');
+    setTimeout("alert('Registration was successful!')",600);
     
  }
